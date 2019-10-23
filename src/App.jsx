@@ -15,7 +15,7 @@ import { useAuth0 } from "./react-auth0-spa.jsx";
 import history from "./utils/history.js";
 
 // styles
-
+import "./assets/styles/css/app.css";
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome.js";
 initFontAwesome();
