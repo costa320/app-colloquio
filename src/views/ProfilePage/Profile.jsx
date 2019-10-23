@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-
+import UserInfo from "../../components/userInfo/UserInfo.jsx";
 import Loading from "../../components/loading/Loading.jsx";
 import { useAuth0 } from "../../react-auth0-spa.jsx";
 
@@ -26,7 +26,9 @@ const Profile = () => {
           <p className="lead text-muted">{user.email}</p>
         </Col>
       </Row>
-      <Row>{JSON.stringify(user, null, 2)}</Row>
+      <Row>
+        <UserInfo user={user} />
+      </Row>
     </Container>
   );
 };
