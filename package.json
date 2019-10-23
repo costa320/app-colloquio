@@ -4,6 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "start:dev": "webpack-dev-server --env.enviroment=DEV_START --open --mode development",
     "build": "webpack --env.enviroment=DEV --mode production"
   },
