@@ -11,6 +11,10 @@ var users_api = require("./api/users/users.api");
 
 app.use(logger(process.env.MORGANLEVEL));
 
+/* HELMET SECURITY */
+const helmet_csp = require('./security/helmet.security');
+app.use(helmet_csp);
+
 /* STATIC REACT BUILD */
 app.use(express.static(path.resolve(__dirname, "build")));
 
