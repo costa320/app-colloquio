@@ -10,6 +10,7 @@ var react_routes = require("./routes/react.routes");
 var users_api = require("./api/users/users.api");
 
 app.use(logger(process.env.MORGANLEVEL));
+console.log("MORGAN: ", process.env.MORGANLEVEL)
 
 /* HELMET SECURITY */
 const helmet_csp = require('./security/helmet.security');
