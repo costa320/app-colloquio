@@ -11,6 +11,7 @@ import Loading from "./components/loading/Loading.jsx";
 /* VIEWS */
 import Home from "./views/HomePage/Home.jsx";
 import Profile from "./views/ProfilePage/Profile.jsx";
+import UsersManager from "./views/UsersManager/usersManager.jsx";
 import { useAuth0 } from "./react-auth0-spa.jsx";
 import history from "./utils/history.js";
 
@@ -35,6 +36,7 @@ const App = () => {
           <Switch>
             <Route path="/" exact component={Home} />
             <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/usersManager" component={UsersManager} />
           </Switch>
         </Container>
         <Footer />
