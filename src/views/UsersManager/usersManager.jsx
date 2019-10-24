@@ -18,7 +18,7 @@ const UserManager = () => {
 
   return (
     <Container className="mb-5">
-      <Row>
+      <Row className="mb-5">
         <Col>
           <Jumbotron style={{ background: "#06C" }} className={"color-w"}>
             <h1 className="display-3">Bentornato, {user.nickname}!</h1>
@@ -29,6 +29,9 @@ const UserManager = () => {
             <hr className="my-2 bck-w" />
           </Jumbotron>
         </Col>
+      </Row>{" "}
+      <Row className="mb-5">
+        <UserInfo user={user} />
       </Row>
       <Row className="mb-5">
         <Col>
@@ -36,9 +39,6 @@ const UserManager = () => {
         </Col>
       </Row>
       <PercentageStatisticks />
-      <Row>
-        <UserInfo user={user} />
-      </Row>
     </Container>
   );
 };
