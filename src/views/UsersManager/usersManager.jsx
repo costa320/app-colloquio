@@ -1,52 +1,46 @@
-import React, { Component } from "react";
-import { Container, Row, Col } from "reactstrap";
+import React from "react";
+import { Container, Row, Col, Jumbotron } from "reactstrap";
+import UserInfo from "../../components/userInfo/UserInfo.jsx";
 import Loading from "../../components/loading/Loading.jsx";
 import { useAuth0 } from "../../react-auth0-spa.jsx";
-/* MIDDLEWARES */
-import { getUsers } from "../../utils/axios.middleware/users.api.jsx";
+/* COMPONENTS */
+import PercentageStatisticks from "../../components/percentageStatisticks/percentageStatisticks.jsx";
+import Feedback from "../../components/feedback/feedback.jsx";
+/* STYLES */
+import "../../assets/styles/css/main.css";
+import "antd/dist/antd.css";
 
-export default class UsersManager extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      UsersList: [],
-      columns: []
-    };
+const UserManager = () => {
+  const { loading, user } = useAuth0();
+  if (loading || !user) {
+    return <Loading />;
   }
 
-  getAllUsers() {
-    let self = this;
-    getUsers()
-      .then(res => {
-        console.log(res);
-        self.setSTATE("UsersList", res);
-      })
-      .catch(function(error) {
-        console.log(error);
-        if (process.env.enviroment === "DEV_START") {
-          /* WHEN DEV MODE IS NEEDED */
-        }
-      });
-  }
+  return (
+    <Container className="mb-5">
+      <Row>
+        <Col>
+          <Jumbotron style={{ background: "#06C" }} className={"color-w"}>
+            <h1 className="display-3">Bentornato, {user.nickname}!</h1>
+            <p className="lead">
+              Dai un'occhiata agli ultimi aggiornamenti che potresti esserti
+              perso!
+            </p>
+            <hr className="my-2 bck-w" />
+          </Jumbotron>
+        </Col>
+      </Row>
+      <Row className="mb-5">
+        <Col>
+          <Feedback />
+        </Col>
+      </Row>
+      <PercentageStatisticks />
+      <Row>
+        <UserInfo user={user} />
+      </Row>
+    </Container>
+  );
+};
 
-  render() {
-
-    /* AUTH */
-    const { loading, user } = useAuth0();
-    if (loading || !user) {
-      return <Loading />;
-    }
-
-    return (
-      <Container className="mb-5">
-        <Row className="align-items-center profile-header mb-5 text-center text-md-left">
-          <Col md={2}>COLSSSSSS</Col>
-        </Row>
-      </Container>
-    );
-  }
-
-  setSTATE(state, value) {
-    this.setState({ [state]: value });
-  }
-}
+export default UserManager;

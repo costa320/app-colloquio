@@ -3,6 +3,8 @@ import { Container, Row, Col } from "reactstrap";
 import UserInfo from "../../components/userInfo/UserInfo.jsx";
 import Loading from "../../components/loading/Loading.jsx";
 import { useAuth0 } from "../../react-auth0-spa.jsx";
+/* STYLE  */
+import "../../assets/styles/css/main.css";
 
 const Profile = () => {
   const { loading, user } = useAuth0();
@@ -13,7 +15,19 @@ const Profile = () => {
 
   return (
     <Container className="mb-5">
-      <Row className="align-items-center profile-header mb-5 text-center text-md-left">
+
+
+
+
+
+
+
+
+
+
+
+      
+      <Row className="align-items-center profile-header mb-5 text-center text-md-left bck-def ">
         <Col md={2}>
           <img
             src={user.picture}

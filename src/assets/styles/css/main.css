@@ -1,0 +1,18 @@
+.bck-def {
+  background-color: "#06C" !important;
+}
+.bck-w {
+  background-color: white !important;
+}
+.bck-g {
+  background-color: #f2f7fc !important;
+}
+
+.color-w {
+  color: white;
+}
+
+#usersInfo > .ant-card > .ant-card-head {
+  background-color: #06c !important;
+  color: white !important;
+}

@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-
+/* COMPONENTS */
+import UsersTable from "../../components/UsersTable/usersTable.jsx";
 import Hero from "../../components/hero/Hero.jsx";
 
 const Home = () => (
@@ -8,7 +9,9 @@ const Home = () => (
     <hr />
     <div className="container">
       <div className="row">
-        <div className="col">PROVA SCRITTA</div>
+        <div className="col">
+          <UsersTable />
+        </div>
       </div>
     </div>
   </Fragment>

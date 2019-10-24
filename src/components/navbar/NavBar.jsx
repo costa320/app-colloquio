@@ -55,7 +55,7 @@ const NavBar = () => {
                   exact
                   activeClassName="router-link-exact-active"
                 >
-                  Users Manager
+                  Gestione Utenti
                 </NavLink>
               </NavItem>
             </Nav>

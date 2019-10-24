@@ -1,20 +1,17 @@
 import axios from "axios";
 
 export function getUsers() {
+  const url = "api/users/getUsers";
   return new Promise((res, reg) => {
     axios
-      .get(process.env.API_users + "/getUsers")
+      .get(url)
       .then(response => {
         console.log(res);
         res(response);
       })
       .catch(function(error) {
         console.log(error);
-        if (process.env.enviroment === "DEV_START") {
-          /* DEV_START ENABLED */
-        } else {
           reg(error);
-        }
       });
   });
 }

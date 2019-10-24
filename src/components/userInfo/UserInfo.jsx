@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+/* COMPONENTS */
+import { Descriptions, Card } from "antd";
+/* STYLES */
+import "../../assets/styles/css/main.css";
 export default class UserInfo extends Component {
   constructor(props) {
     super(props);
@@ -22,19 +25,27 @@ export default class UserInfo extends Component {
     let userInfo = s.userInfo;
 
     return (
-      <div className="container">
-        {userInfo
-          ? Object.keys(userInfo).map((key, i) => {
-              return (
-                <div className="row" key={key + userInfo.nickname}>
-                  <div className="col-3">
-                    <h4>{key}: </h4>
-                  </div>
-                  <div className="col"> {userInfo[key]}</div>
-                </div>
-              );
-            })
-          : ""}
+      <div className="container" id="usersInfo">
+        <Card title={<span className="bck-def">"Informazioni utente"</span>}>
+          <Descriptions>
+            {" "}
+            {userInfo
+              ? Object.keys(userInfo).map((key, i) => {
+                  if (key === "picture") {
+                    return "";
+                  }
+                  return (
+                    <Descriptions.Item
+                      label={<b>{key}</b>}
+                      key={key + "i" + userInfo[key]}
+                    >
+                      {userInfo[key]}
+                    </Descriptions.Item>
+                  );
+                })
+              : ""}{" "}
+          </Descriptions>
+        </Card>
       </div>
     );
   }
