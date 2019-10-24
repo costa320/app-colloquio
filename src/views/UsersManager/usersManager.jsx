@@ -30,6 +30,13 @@ export default class UsersManager extends Component {
   }
 
   render() {
+
+    /* AUTH */
+    const { loading, user } = useAuth0();
+    if (loading || !user) {
+      return <Loading />;
+    }
+
     return (
       <Container className="mb-5">
         <Row className="align-items-center profile-header mb-5 text-center text-md-left">
