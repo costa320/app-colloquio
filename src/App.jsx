@@ -7,7 +7,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import NavBar from "./components/navbar/NavBar.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import Loading from "./components/loading/Loading.jsx";
-
+import Map_ from "./components/map/map.jsx";
 /* VIEWS */
 import Home from "./views/HomePage/Home.jsx";
 import Profile from "./views/ProfilePage/Profile.jsx";
@@ -37,6 +37,7 @@ const App = () => {
             <Route path="/" exact component={Home} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/usersManager" component={UsersManager} />
+            <PrivateRoute path="/incidenti" component={Map_} />
           </Switch>
         </Container>
         <Footer />
