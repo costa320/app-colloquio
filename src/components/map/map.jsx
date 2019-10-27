@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from "react";
 /* COMPONENTS */
 import GoogleMapReact from "google-map-react";
-import { Drawer, Descriptions, Card } from "antd";
+import { Drawer, Descriptions, Card, Spin } from "antd";
 import Marker from "./Marker.jsx";
 import StatisticheIncidenti from "../StatisticheIncidenti/StatisticheIncidenti.jsx";
 /* MIDDLEWARES */
 import { getAccidentsByPeriod } from "../../utils/axios.middleware/accidents.api.jsx";
 /* EXTRAS */
-import incidentiGennaio from "./mock_json/incidenti_stradali_gennaio_2019.json";
+/* import incidentiGennaio from "./mock_json/incidenti_stradali_gennaio_2019.json";
 import incidentiFebbraio from "./mock_json/incidenti_stradali_febbraio_2019.json";
-import incidentiMarzo from "./mock_json/incidenti_stradali_marzo_2019.json";
+import incidentiMarzo from "./mock_json/incidenti_stradali_marzo_2019.json"; */
 import { UUID } from "../../utils/UUID.js";
 /* STYLES */
 import "../../assets/styles/css/maps.css";
@@ -31,14 +31,16 @@ export default class Map extends Component {
       zoom: 11,
       /* DRAWER */
       accident_selected: null,
-      VisibleDrawerACCInformation: false
+      VisibleDrawerACCInformation: false,
+      /* loading state for this page */
+      loading: false
     };
   }
 
   componentDidMount() {
-    this.setState({ accidents: incidentiGennaio }, state => {
+    /*    this.setState({ accidents: incidentiGennaio }, state => {
       this.setAccidentsByHourRange_(this.state.filterHourRange);
-    });
+    }); */
 
     this.initAccidents(this.state.selectedMonths);
   }
@@ -63,15 +65,18 @@ export default class Map extends Component {
 
   initAccidents(selectedMonths) {
     let self = this;
+    this.setState({ loading: true });
     getAccidentsByPeriod(selectedMonths)
       .then(res => {
         self.setState({ accidents: res.data }, () => {
           self.setAccidentsByHourRange_(self.state.filterHourRange);
         });
-        console.log(res);
+        self.setState({ loading: false });
+        /* console.log(res); */
       })
       .catch(err => {
         console.log(err);
+        self.setState({ loading: false });
       });
   }
 
@@ -80,66 +85,69 @@ export default class Map extends Component {
     let s = this.state;
     return (
       <Fragment>
-        <div className="container">
-          <div className="row mb-5">
-            <div className="col">
-              <StatisticheIncidenti
-                accidents={s.filteredAccidents}
-                setSTATEFather={this.setSTATE_}
-                setAccidents_={this.setAccidents_}
-                setAccidentsByHourRange_={this.setAccidentsByHourRange_}
-              />
+        <Spin spinning={this.state.loading}>
+          <div className="container">
+            <div className="row mb-5">
+              <div className="col">
+                <StatisticheIncidenti
+                  accidents={s.filteredAccidents}
+                  setSTATEFather={this.setSTATE_}
+                  setAccidents_={this.setAccidents_}
+                  setAccidentsByHourRange_={this.setAccidentsByHourRange_}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col" id={"accidentsMap"}>
+                <Card
+                  title={<span className="bck-def">Mappa degli incidenti</span>}
+                >
+                  {accidents && (
+                    // Important! Always set the container height explicitly
+                    <div style={{ height: "100vh", width: "100%" }}>
+                      <GoogleMapReact
+                        bootstrapURLKeys={{
+                          key: "AIzaSyC9nCYEkly6_Cu7IDvWkdbbCDaGtb7prms"
+                        }}
+                        defaultCenter={s.ROMA_CENTER}
+                        defaultZoom={s.zoom}
+                      >
+                        {s.filteredAccidents &&
+                          this.generateAccidents(s.filteredAccidents)}
+                      </GoogleMapReact>
+                    </div>
+                  )}
+                </Card>
+              </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col" id={"accidentsMap"}>
-              <Card
-                title={<span className="bck-def">Mappa degli incidenti</span>}
-              >
-                {accidents && (
-                  // Important! Always set the container height explicitly
-                  <div style={{ height: "100vh", width: "100%" }}>
-                    <GoogleMapReact
-                      bootstrapURLKeys={{
-                        key: "AIzaSyC9nCYEkly6_Cu7IDvWkdbbCDaGtb7prms"
-                      }}
-                      defaultCenter={s.ROMA_CENTER}
-                      defaultZoom={s.zoom}
+          <Drawer
+            title={`Informazioni aggiuntive sull'incidente N° ${
+              s.accident_selected ? s.accident_selected.ID : ""
+            }`}
+            width={"720px"}
+            placement={"right"}
+            closable={true}
+            onClose={this.handleCloseDrawerACCInformation}
+            visible={s.VisibleDrawerACCInformation}
+          >
+            <Descriptions title="">
+              {s.accident_selected &&
+                Object.keys(s.accident_selected).map(key => {
+                  return (
+                    <Descriptions.Item
+                      key={UUID()}
+                      label={<span className="font-weight-bold">{key}</span>}
                     >
-                      {s.filteredAccidents &&
-                        this.generateAccidents(s.filteredAccidents)}
-                    </GoogleMapReact>
-                  </div>
-                )}
-              </Card>
-            </div>
-          </div>
-        </div>
-
-        <Drawer
-          title={`Informazioni aggiuntive sull'incidente N° ${
-            s.accident_selected ? s.accident_selected.ID : ""
-          }`}
-          width={"720px"}
-          placement={"right"}
-          closable={true}
-          onClose={this.handleCloseDrawerACCInformation}
-          visible={s.VisibleDrawerACCInformation}
-        >
-          <Descriptions title="">
-            {s.accident_selected &&
-              Object.keys(s.accident_selected).map(key => {
-                return (
-                  <Descriptions.Item
-                    key={UUID()}
-                    label={<span className="font-weight-bold">{key}</span>}
-                  >
-                    {s.accident_selected[key] ? s.accident_selected[key] : "ND"}
-                  </Descriptions.Item>
-                );
-              })}
-          </Descriptions>
-        </Drawer>
+                      {s.accident_selected[key]
+                        ? s.accident_selected[key]
+                        : "ND"}
+                    </Descriptions.Item>
+                  );
+                })}
+            </Descriptions>
+          </Drawer>
+        </Spin>
       </Fragment>
     );
   }
