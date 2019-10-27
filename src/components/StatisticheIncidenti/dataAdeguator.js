@@ -20,7 +20,7 @@ export function adeguateData(raw_accidents) {
 function determineGravity({ NUM_MORTI, NUM_FERITI }) {
   let gravity = null;
 
-  if (NUM_MORTI > 1 || NUM_FERITI >= 4) {
+  if (NUM_MORTI >= 1 || NUM_FERITI >= 4) {
     gravity = "alta";
   } else if (NUM_FERITI >= 2) {
     gravity = "media";

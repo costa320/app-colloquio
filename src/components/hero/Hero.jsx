@@ -1,5 +1,5 @@
 import React from "react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../assets/img/logo.svg";
 
 const Hero = () => (
@@ -8,6 +8,7 @@ const Hero = () => (
     <h1 className="mb-4">Siamo Tutti Connessi</h1>
 
     <p className="lead">
+      <FontAwesomeIcon icon="coffee" />
       Applicazione demo per <a href="https://almaviva.it">Almaviva</a>
     </p>
   </div>

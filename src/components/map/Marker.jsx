@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Icon } from "antd";
 import "../../assets/styles/css/maps.css";
 /* const Wrapper = styled.div`
@@ -23,15 +24,23 @@ import "../../assets/styles/css/maps.css";
 `; */
 const style_low = {
   color: "grey",
-  fontSize: "10px"
+  fontSize: "15px",
+  cursor: "pointer"
 };
 const style_middle = {
   color: "orange",
-  fontSize: "15px"
+  fontSize: "25px",
+  cursor: "pointer"
 };
 const style_high = {
   color: "red",
-  fontSize: "25px"
+  fontSize: "30px",
+  cursor: "pointer"
+};
+const style_skull = {
+  color: "#860c0c",
+  fontSize: "30px",
+  cursor: "pointer"
 };
 
 const Marker = ({ acc, text, onClick }) => {
@@ -39,7 +48,7 @@ const Marker = ({ acc, text, onClick }) => {
   const num_morti = Number(acc.NUM_MORTI);
   const num_feriti = Number(acc.NUM_FERITI);
 
-  if (num_morti > 1 || num_feriti >= 4) {
+  if (num_morti >= 1 || num_feriti >= 4) {
     style = style_high;
   } else if (num_feriti >= 2) {
     style = style_middle;
@@ -48,12 +57,22 @@ const Marker = ({ acc, text, onClick }) => {
   }
 
   return (
-    <Icon
-      style={style}
-      type="heat-map"
-      alt={text}
-      {...(onClick ? { onClick: onClick } : {})}
-    />
+    <>
+      {num_morti >= 1 ? (
+        <FontAwesomeIcon
+          icon="skull-crossbones"
+          style={style_skull}
+          {...(onClick ? { onClick: onClick } : {})}
+        />
+      ) : (
+        <Icon
+          style={style}
+          type="heat-map"
+          alt={text}
+          {...(onClick ? { onClick: onClick } : {})}
+        />
+      )}
+    </>
   );
 };
 
