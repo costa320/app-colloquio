@@ -3,7 +3,7 @@ module.exports = csp({
   // Specify directives as normal.
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "'unsafe-inline'"],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://maps.googleapis.com"],
     styleSrc: ["'self'", "'unsafe-inline'"],
     fontSrc: ["'self'", "fonts.com"],
     imgSrc: ["'self'", "data:", "*"],
