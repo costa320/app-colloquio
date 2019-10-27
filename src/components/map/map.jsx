@@ -56,6 +56,8 @@ export default class Map extends Component {
     });
   }
 
+  
+
   render() {
     const { accidents } = this.state;
     let s = this.state;
