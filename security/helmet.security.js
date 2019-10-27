@@ -4,8 +4,13 @@ module.exports = csp({
   directives: {
     defaultSrc: ["'self'"],
     scriptSrc: ["'self'", "'unsafe-inline'", "https://maps.googleapis.com"],
-    styleSrc: ["'self'", "'unsafe-inline'"],
-    fontSrc: ["'self'", "fonts.com"],
+    styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+    fontSrc: [
+      "'self'",
+      "fonts.com",
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com"
+    ],
     imgSrc: ["'self'", "data:", "*"],
     sandbox: ["allow-forms", "allow-same-origin", "allow-scripts"],
     reportUri: "/report-violation",
