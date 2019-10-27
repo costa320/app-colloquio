@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 /* COMPONENTS */
 import GoogleMapReact from "google-map-react";
-import { Drawer, Descriptions } from "antd";
+import { Drawer, Descriptions, Card } from "antd";
 import Marker from "./Marker.jsx";
 import StatisticheIncidenti from "../StatisticheIncidenti/StatisticheIncidenti.jsx";
 /* MIDDLEWARES */
@@ -73,22 +73,26 @@ export default class Map extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col">
-              {accidents && (
-                // Important! Always set the container height explicitly
-                <div style={{ height: "100vh", width: "100%" }}>
-                  <GoogleMapReact
-                    bootstrapURLKeys={{
-                      key: "AIzaSyC9nCYEkly6_Cu7IDvWkdbbCDaGtb7prms"
-                    }}
-                    defaultCenter={s.ROMA_CENTER}
-                    defaultZoom={s.zoom}
-                  >
-                    {s.filteredAccidents &&
-                      this.generateAccidents(s.filteredAccidents)}
-                  </GoogleMapReact>
-                </div>
-              )}
+            <div className="col" id={'accidentsMap'}>
+              <Card
+                title={<span className="bck-def">Mappa degli incidenti</span>}
+              >
+                {accidents && (
+                  // Important! Always set the container height explicitly
+                  <div style={{ height: "100vh", width: "100%" }}>
+                    <GoogleMapReact
+                      bootstrapURLKeys={{
+                        key: "AIzaSyC9nCYEkly6_Cu7IDvWkdbbCDaGtb7prms"
+                      }}
+                      defaultCenter={s.ROMA_CENTER}
+                      defaultZoom={s.zoom}
+                    >
+                      {s.filteredAccidents &&
+                        this.generateAccidents(s.filteredAccidents)}
+                    </GoogleMapReact>
+                  </div>
+                )}
+              </Card>
             </div>
           </div>
         </div>

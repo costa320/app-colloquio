@@ -1,3 +1,10 @@
 .defIcon {
+}
 
+#accidentsMap > .ant-card > .ant-card-head {
+  background-color: #06c !important;
+  color: white !important;
+}
+#accidentsMap > .ant-card > .ant-card-body {
+  padding: 0px !important;
 }
