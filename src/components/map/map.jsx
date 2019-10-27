@@ -5,6 +5,7 @@ import { Drawer, Descriptions, Card } from "antd";
 import Marker from "./Marker.jsx";
 import StatisticheIncidenti from "../StatisticheIncidenti/StatisticheIncidenti.jsx";
 /* MIDDLEWARES */
+import { getAccidentsByPeriod } from "../../utils/axios.middleware/accidents.api.jsx";
 /* EXTRAS */
 import incidentiGennaio from "./mock_json/incidenti_stradali_gennaio_2019.json";
 import incidentiFebbraio from "./mock_json/incidenti_stradali_febbraio_2019.json";
@@ -21,6 +22,8 @@ export default class Map extends Component {
       accidents: null,
       filteredAccidents: null,
       filterHourRange: [6, 12],
+      selectedMonths: ["incidentiGennaio2019"],
+
       ROMA_CENTER: {
         lat: 41.902782,
         lng: 12.496366
@@ -36,6 +39,8 @@ export default class Map extends Component {
     this.setState({ accidents: incidentiGennaio }, state => {
       this.setAccidentsByHourRange_(this.state.filterHourRange);
     });
+
+    this.initAccidents(this.state.selectedMonths);
   }
 
   generateAccidents(accidents) {
@@ -56,7 +61,19 @@ export default class Map extends Component {
     });
   }
 
-  
+  initAccidents(selectedMonths) {
+    let self = this;
+    getAccidentsByPeriod(selectedMonths)
+      .then(res => {
+        self.setState({ accidents: res.data }, () => {
+          self.setAccidentsByHourRange_(self.state.filterHourRange);
+        });
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   render() {
     const { accidents } = this.state;
@@ -75,7 +92,7 @@ export default class Map extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col" id={'accidentsMap'}>
+            <div className="col" id={"accidentsMap"}>
               <Card
                 title={<span className="bck-def">Mappa degli incidenti</span>}
               >
@@ -128,8 +145,12 @@ export default class Map extends Component {
   }
 
   setAccidents_ = ArrType => {
-    let arrayAccidents = [];
-    ArrType.forEach(element => {
+    this.setState({ selectedMonths: ArrType }, () => {
+      this.initAccidents(this.state.selectedMonths);
+    });
+
+    /* let arrayAccidents = []; */
+    /*     ArrType.forEach(element => {
       switch (element) {
         case "incidentiGennaio2019":
           arrayAccidents = arrayAccidents.concat(incidentiGennaio);
@@ -141,10 +162,10 @@ export default class Map extends Component {
           arrayAccidents = arrayAccidents.concat(incidentiMarzo);
           break;
       }
-    });
-    this.setState({ accidents: arrayAccidents }, () => {
+    }); */
+    /*     this.setState({ accidents: arrayAccidents }, () => {
       this.setAccidentsByHourRange_(this.state.filterHourRange);
-    });
+    }); */
   };
 
   setAccidentsByHourRange_ = range => {

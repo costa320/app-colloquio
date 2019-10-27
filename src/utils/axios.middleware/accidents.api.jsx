@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function getAccidentsByPeriod(periodID) {
-  const url = "api/accidents/getAccidentsPeriod/" + periodID;
+  const url = "api/accidents/getAccidentsPeriod/" + JSON.stringify(periodID);
   return new Promise((res, reg) => {
     axios
       .get(url)
