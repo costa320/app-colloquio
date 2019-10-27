@@ -65,6 +65,7 @@ export default class Map extends Component {
           <div className="row mb-5">
             <div className="col">
               <StatisticheIncidenti
+                accidents={s.filteredAccidents}
                 setSTATEFather={this.setSTATE_}
                 setAccidents_={this.setAccidents_}
                 setAccidentsByHourRange_={this.setAccidentsByHourRange_}

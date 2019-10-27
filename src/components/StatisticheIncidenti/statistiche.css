@@ -16,3 +16,18 @@
   background-color: #06c !important;
   color: white !important;
 }
+#GravityChart > .ant-card > .ant-card-head {
+  background-color: #06c !important;
+  color: white !important;
+}
+#ScattePlotChart > .ant-card > .ant-card-head {
+  background-color: #06c !important;
+  color: white !important;
+}
+#GravityChart > .ant-card > .ant-card-body {
+  padding: 0px !important;
+}
+
+.maxH {
+  max-height: 400px;
+}

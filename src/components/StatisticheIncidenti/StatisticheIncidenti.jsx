@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 /* COMPONENTS */
 import { Select, Progress, Slider, Card } from "antd";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import GravityAccidentsChart from "./ChartGravityAccidents.jsx";
+import ScatterplotChart from "./ScatterPlotChart.jsx";
 /* MIDDLEWARES */
 /* EXTRAS */
 import { UUID } from "../../utils/UUID.js";
@@ -52,6 +54,7 @@ export default class StatisticheIncidenti extends Component {
   render() {
     const { accidents } = this.state;
     let s = this.state;
+    let p = this.props;
     return (
       <Fragment>
         <div className="container m-0 p-0">
@@ -74,7 +77,7 @@ export default class StatisticheIncidenti extends Component {
               </Form>
             </div>
           </div>
-          <div className="row m-0 p-0">
+          <div className="row m-0 p-0 mb-3">
             <div className="col m-0 p-0" id="FasceOrarie">
               <Card
                 title={
@@ -89,6 +92,24 @@ export default class StatisticheIncidenti extends Component {
                   max={24}
                   marks={this.getMarks()}
                 />
+              </Card>
+            </div>
+          </div>
+          <div className="row m-0 p-0 mb-3">
+            <div className="col m-0 p-0" id="GravityChart">
+              <Card
+                title={<span className="bck-def">Gravità degli incidenti</span>}
+              >
+                <GravityAccidentsChart accidents={p.accidents} />
+              </Card>
+            </div>
+          </div>
+          <div className="row m-0 p-0">
+            <div className="col m-0 p-0" id="ScattePlotChart">
+              <Card
+                title={<span className="bck-def">Plot degli incidenti</span>}
+              >
+                <ScatterplotChart accidents={p.accidents} />
               </Card>
             </div>
           </div>
